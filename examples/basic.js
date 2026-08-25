@@ -1,11 +1,8 @@
-import * as THREE from "https://esm.sh/three";
-import * as NODE  from "https://esm.sh/three/nodes";
-import {global}   from "https://esm.sh/three/nodes";
+import * as THREE from "https://esm.sh/three@0.185.1";
+import { MeshPhysicalNodeMaterial } from "https://esm.sh/three@0.185.1/webgpu";
+import { WebGLNodesHandler } from "https://esm.sh/three@0.185.1/addons/tsl/WebGLNodesHandler.js";
 import * as PlanetTech from "https://esm.sh/@interstellar-js-core/planettech@0.0.8-alpha.0.1.7";
-import { nodeFrame }   from "https://esm.sh/three/addons/renderers/webgl-legacy/nodes/WebGLNodes.js";
-import {OrbitControls} from "https://esm.sh/three/addons/controls/OrbitControls.js";
-
-global.set('TSL', NODE);
+import {OrbitControls} from "https://esm.sh/three@0.185.1/addons/controls/OrbitControls.js";
 
 let scene, camera, renderer,controls,
 rightColorTexture,leftColorTexture,topColorTexture,
@@ -22,7 +19,7 @@ let near   = .01
 let far    =  Number.MAX_SAFE_INTEGER
 let ambientLightParams = {c:0x404040,i:5}
 let directionalLightParams = {c:0xffffff,i:5.5}
-let clock = new THREE.Clock();
+let timer = new THREE.Timer();
 
 function loadTextuers(){
     rightColorTexture  = new THREE.TextureLoader().load("./textuers/color/right_color_image.png")
@@ -47,6 +44,7 @@ function setUp(){
         logarithmicDepthBuffer: true,
         antialias: true,
       });
+    renderer.setNodesHandler(new WebGLNodesHandler());
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.setClearColor(backGroundColor);
     document.body.appendChild( renderer.domElement );
@@ -73,8 +71,7 @@ function initPlanet(){
         radius:          80000,
         displacmentScale:  165,
         lodDistanceOffset:  6,
-        material: new NODE.MeshPhysicalNodeMaterial({}),
-        //color: () => NODE.vec3(1,0,0),
+        material: new MeshPhysicalNodeMaterial({}),
       }
       
       let s = new PlanetTech.Sphere(
@@ -106,9 +103,9 @@ function initPlanet(){
 
 function render() {
     requestAnimationFrame( render );
-    controls.update(clock.getDelta())
+    timer.update();
+    controls.update(timer.getDelta())
     renderer.render( scene, camera );
-    nodeFrame.update();
     };
 
 setUp()

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import * as THREE from 'three';
-import { Primitive } from '../src/engine/primitives';
-import { Infrastructure } from '../src/engine/system/infrastructure';
+import { Primitive } from '../src/engine/primitives/primitive.js';
+import { Infrastructure } from '../src/engine/system/infrastructure.js';
 
 let primitive;
 

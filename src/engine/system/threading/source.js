@@ -1,7 +1,7 @@
 
 export function workersSRC(currentGeometry,params){
     return `
-    import * as THREE from 'https://unpkg.com/three@0.169/build/three.module.js';
+    import * as THREE from 'https://unpkg.com/three@0.185.1/build/three.module.js';
     //todo: add the ability for dynamic imports like (params.map)
 
 

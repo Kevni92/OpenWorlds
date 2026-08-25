@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import * as THREE from 'three';
-import { QuadGeometry, NormalizedQuadGeometry } from '../src/engine/geometry';
+import { QuadGeometry, NormalizedQuadGeometry } from '../src/engine/geometries/geometry.js';
 
 describe('QuadGeometry Class', () => {
   it('should initialize with correct parameters', () => {
@@ -44,6 +44,7 @@ describe('QuadGeometry Class', () => {
   it('should reset geometry correctly', () => {
     const geometry = new QuadGeometry(100, 100, 10, 10);
     geometry._setMatrix({ matrix: new THREE.Matrix4() });
+    geometry._setOffset({ offset: [0, 0, 0] });
     geometry._build();
 
     const centerPosition = new THREE.Vector3();
@@ -113,6 +114,7 @@ describe('NormalizedQuadGeometry Class', () => {
   it('should reset normalized geometry correctly', () => {
     const geometry = new NormalizedQuadGeometry(100, 100, 10, 10, 50);
     geometry._setMatrix({ matrix: new THREE.Matrix4() });
+    geometry._setOffset({ offset: [0, 0, 0] });
     geometry._build();
 
     const centerPosition = new THREE.Vector3();
